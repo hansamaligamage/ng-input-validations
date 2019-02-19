@@ -1,0 +1,71 @@
+<div class="container">
+    <h1>Create Student</h1>
+    <h2> {{member.firstName}} {{member.lastName}} </h2>
+    <form name="form" #f="ngForm" novalidate>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-form-label-sm" for="firstname">First name *</label>
+                    <input type="text" tabindex="1" class="form-control form-control-sm" placeholder="First name" name="firstName" required [(ngModel)]="member.firstName" #firstName="ngModel" lettersOnly 
+                    [ngClass]="{ 'is-invalid': f.submitted && firstName.invalid  }"/>
+                    <div *ngIf="f.submitted && firstName.invalid " class="invalid-feedback">
+                        <div *ngIf="firstName.errors.required" i18n="First Name Required | First Name required message @@personal.error.required_first_name">First Name is required</div>
+                    </div>
+                    <label class="col-form-label-sm" for="phone">Phone</label>
+                    <input type="text" tabindex="3" class="form-control form-control-sm" placeholder="Phone" name="phone" [(ngModel)]="member.phone" #phone="ngModel" phoneOnly minlength="12" maxlength="12" 
+                    [ngClass]="{ 'is-invalid':  f.submitted && phone.invalid && phone.dirty}" phonevalidator/>
+                    <div *ngIf="f.submitted && phone.invalid && phone.dirty" class="invalid-feedback">
+                        <div *ngIf="phone.errors.phonevalidator" i18n="Invalid SSN | Invalid SSN message @@personal.error.invalid_email">Invalid Phone No</div>
+                    </div>
+                    <label class="col-form-label-sm" for="ssn">SSN *</label>
+                    <input type="text" tabindex="5" class="form-control form-control-sm" placeholder="SSN" name="ssn" required [(ngModel)]="member.ssn" #ssn="ngModel" ssnNumber minlength="12" maxlength="12" 
+                    [ngClass]="{ 'is-invalid':  f.submitted && ssn.invalid}" ssnvalidator>
+                    <div *ngIf="f.submitted && ssn.invalid " class="invalid-feedback">
+                        <div *ngIf="ssn.errors.required" i18n="SSN Required | SSN required message @@personal.error.required_first_name">SSN is required</div>
+                        <div *ngIf="ssn.errors.ssnvalidator" i18n="Invalid SSN | Invalid SSN message @@personal.error.invalid_email">Invalid SSN</div>
+                    </div>
+                    <label class="col-form-label-sm" for="year">Postal No</label>
+                    <ng-select tabindex="7" name="postalNo" class="form-control form-control-sm" [items]="masterData.postalCode" bindLabel="code" bindValue="id" [(ngModel)]="member.postalNo" #postalNo="ngModel" (change)="onPostalNoChange($event)">
+                    </ng-select>
+                    <label class="col-form-label-sm" for="addressline1">Address line1</label>
+                    <input type="text" tabindex="9" class="form-control form-control-sm" placeholder="Address line1" name="addressline1" [(ngModel)]="member.addressline1" #addressline1="ngModel" lettersNumbersOnly>
+                    <label class="col-form-label-sm" for="gpa">GPA</label>
+                    <input type="text" tabindex="11" class="form-control form-control-sm" placeholder="GPA" name="gpa" [(ngModel)]="member.gpa" #gpa="ngModel" decimalnumberOnly>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-form-label-sm" for="lastName">Last name *</label>
+                    <input type="text" tabindex="2" class="form-control form-control-sm" placeholder="Last name" name="lastName" required [(ngModel)]="member.lastName" #lastName="ngModel" lettersOnly 
+                    [ngClass]="{ 'is-invalid': f.submitted && lastName.invalid  }"/>
+                    <div *ngIf="f.submitted && lastName.invalid " class="invalid-feedback">
+                        <div *ngIf="lastName.errors.required" i18n="Last Name Required | Last Name required message @@personal.error.required_first_name">Last Name is required</div>
+                    </div>
+                    <label class="col-form-label-sm" for="email">Email *</label>
+                    <input type="email" tabindex="4" class="form-control form-control-sm" placeholder="Email" name="email" required [(ngModel)]="member.email" #email="ngModel" required [ngClass]="{ 'is-invalid':  f.submitted && email.invalid}" emailvalidator>
+                    <div *ngIf="f.submitted && email.invalid " class="invalid-feedback">
+                        <div *ngIf="email.errors.required" i18n="Email Required | Email required message @@personal.error.required_first_name">Email is required</div>
+                        <div *ngIf="email.errors.emailvalidator" i18n="Invalid Email | Invalid Email message @@personal.error.invalid_email">Invalid Email</div>
+                    </div>
+                    <label class="col-form-label-sm" for="gender">Gender *</label>
+                    <ng-select tabindex="6" name="gender" required class="form-control form-control-sm" [items]="masterData.gender" bindLabel="value" bindValue="id" [(ngModel)]="member.gender" #gender="ngModel" required 
+                    [ngClass]="{ 'is-invalid': f.submitted && gender.invalid}">
+                    </ng-select>
+                    <div *ngIf="f.submitted && gender.invalid" class="invalid-feedback-select">
+                        <div *ngIf="gender.errors.required" i18n="Gender Required | Gender required message @@personal.error.required_first_name">Gender is required</div>
+                    </div>
+                    <label class="col-form-label-sm" for="batch">Postal Place</label>
+                    <input type="text" tabindex="8" class="form-control form-control-sm" placeholder="Postal place" name="postalPlace" [(ngModel)]="member.postalPlace" #postalPlace="ngModel" disabled>
+                    <label class="col-form-label-sm" for="addressline2">Address line2</label>
+                    <input type="text" tabindex="10" class="form-control form-control-sm" placeholder="Address line2" name="addressline2" [(ngModel)]="member.addressline2" #addressline2="ngModel" lettersNumbersOnly>
+                    <label class="col-form-label-sm" for="certificateissued">Certificate Issued</label>
+                    <label class="switch float-right">
+                        <input checked name="certificateissued" type="checkbox" [(ngModel)]="member.certificateissued" #certificateissued="ngModel" tabindex="12">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="!f.dirty">Save</button>
+        </div>
+    </form>
+</div>
