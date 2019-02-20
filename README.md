@@ -24,6 +24,9 @@ required [(ngModel)]="member.firstName" #firstName="ngModel" lettersOnly
    <div *ngIf="firstName.errors.required"> First Name is required </div>
 </div>
  ```
+ 
+ ![Required filed validators](https://github.com/hansamaligamage/ng-input-validations/blob/master/Images/11.png?raw=true)
+ 
  # Invalid Phone no validator
  ```
  <input type="text" tabindex="3" class="form-control form-control-sm" placeholder="Phone" name="phone" 
@@ -33,6 +36,8 @@ required [(ngModel)]="member.firstName" #firstName="ngModel" lettersOnly
    <div *ngIf="phone.errors.phonevalidator">Invalid Phone No</div>
 </div>
 ```
+
+![Invalid phone no validator](https://github.com/hansamaligamage/ng-input-validations/blob/master/Images/12.png?raw=true)
 
 ## Directive to validate Phone no
 ```
